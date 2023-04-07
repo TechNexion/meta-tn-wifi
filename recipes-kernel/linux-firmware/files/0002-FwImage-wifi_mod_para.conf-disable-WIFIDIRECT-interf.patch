@@ -1,0 +1,25 @@
+From 761ae684d43aaa382f4b1a81a02d2effd9bb60cc Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Wed, 1 Feb 2023 15:01:31 +0800
+Subject: [PATCH 2/2] FwImage: wifi_mod_para.conf: disable WIFIDIRECT interface
+ for IW416
+
+---
+ nxp/wifi_mod_para.conf | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/nxp/wifi_mod_para.conf b/nxp/wifi_mod_para.conf
+index 72b50b3..956fa77 100644
+--- a/nxp/wifi_mod_para.conf
++++ b/nxp/wifi_mod_para.conf
+@@ -138,6 +138,7 @@ SD9098_1 = {
+ 
+ SDIW416 = {
+ 	cfg80211_wext=0xf
++	drv_mode=0x3
+ 	max_vir_bss=1
+ 	cal_data_cfg=none
+ 	ps_mode=2
+-- 
+2.25.1
+
