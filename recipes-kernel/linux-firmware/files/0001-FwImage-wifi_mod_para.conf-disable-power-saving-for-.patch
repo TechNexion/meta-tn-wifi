@@ -1,0 +1,28 @@
+From 4202e6ddfc52bcd623cf2c0f0b57ee0a906c20df Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Wed, 1 Feb 2023 14:59:56 +0800
+Subject: [PATCH 1/2] FwImage: wifi_mod_para.conf: disable power saving for
+ IW416
+
+---
+ nxp/wifi_mod_para.conf | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nxp/wifi_mod_para.conf b/nxp/wifi_mod_para.conf
+index 4af45ec..72b50b3 100644
+--- a/nxp/wifi_mod_para.conf
++++ b/nxp/wifi_mod_para.conf
+@@ -140,8 +140,8 @@ SDIW416 = {
+ 	cfg80211_wext=0xf
+ 	max_vir_bss=1
+ 	cal_data_cfg=none
+-	ps_mode=1
+-	auto_ds=1
++	ps_mode=2
++	auto_ds=2
+ 	host_mlme=1
+ 	fw_name=nxp/sdiouartiw416_combo_v0.bin
+ }
+-- 
+2.25.1
+

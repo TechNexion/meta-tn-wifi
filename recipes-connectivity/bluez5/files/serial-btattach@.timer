@@ -1,0 +1,8 @@
+[Unit]
+Description=Timer for Bluetooth attach service on %I
+
+[Timer]
+OnStartupSec=6
+
+[Install]
+WantedBy=timers.target

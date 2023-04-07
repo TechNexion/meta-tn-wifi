@@ -1,5 +1,5 @@
 [Unit]
-Description=QCA Bluetooth firmware service on %I
+Description=Bluetooth attach service on %I
 ConditionPathIsDirectory=/sys/bus/platform/drivers/imx-sdma
 BindsTo=dev-%i.device
 Requires=firmwared.service
@@ -9,7 +9,7 @@ Before=bluetooth.service
 [Service]
 Type=simple
 RemainAfterExit=yes
-ExecStart=/usr/bin/hciattach -t 30 /dev/%I qca @BAUDRATE@ flow -
+ExecStart=/opt/btattach/btattach.sh %I
 Restart=on-failure
 RestartSec=10
 
