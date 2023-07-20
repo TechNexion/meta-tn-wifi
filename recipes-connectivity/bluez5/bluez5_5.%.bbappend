@@ -17,7 +17,7 @@ inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd"
 
 do_install:append() {
-    if ${@bb.utils.contains('DISTRO_FEATURES', 'fcc', 'false', 'true', d)}; then
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'fcc-qca', 'false', bb.utils.contains('DISTRO_FEATURES', 'fcc-nxp', 'false', 'true', d), d)}; then
         if [ ! -z "${SERIAL_BLUETOOTH}" ] ; then
                 default_baudrate=`echo "${SERIAL_BLUETOOTH}" | sed 's/\;.*//'`
                 install -d ${D}/opt/btattach/
