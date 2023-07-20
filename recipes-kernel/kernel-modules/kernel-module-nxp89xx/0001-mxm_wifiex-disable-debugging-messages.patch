@@ -1,0 +1,22 @@
+From 54b7f0d8c286eaaae957b01af593c30f0fdae840 Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Thu, 20 Jul 2023 13:43:12 +0800
+Subject: [PATCH] mxm_wifiex: disable debugging messages
+
+---
+ mxm_wifiex/wlan_src/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mxm_wifiex/wlan_src/Makefile b/mxm_wifiex/wlan_src/Makefile
+index bde631b..df10948 100644
+--- a/mxm_wifiex/wlan_src/Makefile
++++ b/mxm_wifiex/wlan_src/Makefile
+@@ -62,7 +62,7 @@ CONFIG_USBNW62X=n
+ # n: NO DEBUG
+ # 1: Only PRINTM(MMSG,...), PRINTM(MFATAL,...), ...
+ # 2: All PRINTM()
+-CONFIG_DEBUG=1
++CONFIG_DEBUG=0
+ 
+ # Enable STA mode support
+ CONFIG_STA_SUPPORT=y
