@@ -1,0 +1,15 @@
+[Unit]
+Description=Mfgbridge Daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=idle
+WorkingDirectory=/usr/sbin
+ExecStart=/usr/sbin/mfgbridge
+Restart=always
+RestartSec=10
+TimeoutSec=30
+
+[Install]
+WantedBy=multi-user.target

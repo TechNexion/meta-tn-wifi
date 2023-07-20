@@ -1,0 +1,16 @@
+[Unit]
+Description=BT Daemon on %I
+ConditionPathIsDirectory=/sys/bus/platform/drivers/imx-sdma
+BindsTo=dev-%i.device
+After=dev-%i.device
+Before=bluetooth.service
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/usr/bin/hciattach /dev/%I any @BAUDRATE@ flow -
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
