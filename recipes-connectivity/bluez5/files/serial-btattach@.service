@@ -1,0 +1,15 @@
+[Unit]
+Description=Bluetooth attach service on %I
+BindsTo=dev-%i.device
+After=dev-%i.device firmwared.service
+Before=bluetooth.service
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/opt/btattach/btattach.sh %I
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
