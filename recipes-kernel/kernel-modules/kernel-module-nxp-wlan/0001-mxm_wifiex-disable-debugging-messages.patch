@@ -1,0 +1,134 @@
+From f746aad18755b536326e7a50a8c3d890e7c80067 Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Tue, 16 Jul 2024 11:17:01 +0800
+Subject: [PATCH] mxm_wifiex: disable debugging messages
+
+---
+ Makefile           |  2 +-
+ mlinux/moal_shim.c | 14 ++++++++++++++
+ 2 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index f4e155b..c73c2e6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -62,7 +62,7 @@ CONFIG_PCIEAW693=n
+ # n: NO DEBUG
+ # 1: Only PRINTM(MMSG,...), PRINTM(MFATAL,...), ...
+ # 2: All PRINTM()
+-CONFIG_DEBUG=1
++CONFIG_DEBUG=n
+ 
+ # Enable STA mode support
+ CONFIG_STA_SUPPORT=y
+diff --git a/mlinux/moal_shim.c b/mlinux/moal_shim.c
+index 3d3de9c..a6be8ca 100644
+--- a/mlinux/moal_shim.c
++++ b/mlinux/moal_shim.c
+@@ -1178,6 +1178,7 @@ mlan_status moal_send_packet_complete(t_void *pmoal, pmlan_buffer pmbuf,
+ 				if (status == MLAN_STATUS_SUCCESS) {
+ 					priv->stats.tx_packets++;
+ 					priv->stats.tx_bytes += skb->len;
++#ifdef DEBUG_LEVEL1
+ #if defined(STA_CFG80211) || defined(UAP_CFG80211)
+ #if CFG80211_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
+ 					if (drvdbg & MDAT_D)
+@@ -1188,9 +1189,11 @@ mlan_status moal_send_packet_complete(t_void *pmoal, pmlan_buffer pmbuf,
+ 							0, 0, skb->data,
+ 							skb->data_len);
+ #endif
++#endif
+ #endif
+ 				} else {
+ 					priv->stats.tx_errors++;
++#ifdef DEBUG_LEVEL1
+ #if defined(STA_CFG80211) || defined(UAP_CFG80211)
+ #if CFG80211_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
+ 					if (drvdbg & MDAT_D)
+@@ -1201,6 +1204,7 @@ mlan_status moal_send_packet_complete(t_void *pmoal, pmlan_buffer pmbuf,
+ 							0, 0, skb->data,
+ 							skb->data_len);
+ #endif
++#endif
+ #endif
+ 				}
+ #if LINUX_VERSION_CODE > KERNEL_VERSION(2, 6, 29)
+@@ -2262,6 +2266,7 @@ mlan_status moal_recv_packet(t_void *pmoal, pmlan_buffer pmbuf)
+ 					       __func__);
+ 					status = MLAN_STATUS_FAILURE;
+ 					priv->stats.rx_dropped++;
++#ifdef DEBUG_LEVEL1
+ #if defined(STA_CFG80211) || defined(UAP_CFG80211)
+ #if CFG80211_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
+ 					if (drvdbg & MDAT_D)
+@@ -2274,6 +2279,7 @@ mlan_status moal_recv_packet(t_void *pmoal, pmlan_buffer pmbuf)
+ 								 pmbuf->data_offset),
+ 							pmbuf->data_len);
+ #endif
++#endif
+ #endif
+ 					goto done;
+ 				}
+@@ -2387,12 +2393,14 @@ mlan_status moal_recv_packet(t_void *pmoal, pmlan_buffer pmbuf)
+ 				       priv->netdev->name);
+ 				status = MLAN_STATUS_FAILURE;
+ 				priv->stats.rx_dropped++;
++#ifdef DEBUG_LEVEL1
+ 				if (drvdbg & MDAT_D)
+ 					woal_packet_fate_monitor(
+ 						priv, PACKET_TYPE_RX,
+ 						RX_PKT_FATE_DRV_DROP_FILTER,
+ 						FRAME_TYPE_ETHERNET_II, 0, 0,
+ 						skb->data, skb->len);
++#endif
+ 				dev_kfree_skb(skb);
+ 				goto done;
+ 			}
+@@ -2400,6 +2408,7 @@ mlan_status moal_recv_packet(t_void *pmoal, pmlan_buffer pmbuf)
+ #endif
+ 			priv->stats.rx_bytes += skb->len;
+ 			priv->stats.rx_packets++;
++#ifdef DEBUG_LEVEL1
+ #if defined(STA_CFG80211) || defined(UAP_CFG80211)
+ #if CFG80211_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
+ 			if (drvdbg & MDAT_D)
+@@ -2410,6 +2419,7 @@ mlan_status moal_recv_packet(t_void *pmoal, pmlan_buffer pmbuf)
+ 							 skb->len);
+ #endif
+ #endif
++#endif
+ #ifdef ANDROID_KERNEL
+ 			if (handle->params.wakelock_timeout) {
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 5, 0)
+@@ -2836,6 +2846,7 @@ static t_void woal_process_event_tx_status(moal_private *priv,
+ #endif
+ #endif
+ 		}
++#ifdef DEBUG_LEVEL1
+ #if defined(STA_CFG80211) || defined(UAP_CFG80211)
+ #if CFG80211_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
+ 		if (drvdbg & MDAT_D)
+@@ -2846,6 +2857,7 @@ static t_void woal_process_event_tx_status(moal_private *priv,
+ 						 skb->data, skb->len);
+ #endif
+ #endif
++#endif
+ #endif
+ 		dev_kfree_skb_any(skb);
+ 		kfree(tx_info);
+@@ -4701,6 +4713,7 @@ mlan_status moal_recv_event(t_void *pmoal, pmlan_event pmevent)
+ #endif
+ #endif
+ 			}
++#ifdef DEBUG_LEVEL1
+ #if defined(STA_CFG80211) || defined(UAP_CFG80211)
+ #if CFG80211_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)
+ 			if (drvdbg & MDAT_D)
+@@ -4712,6 +4725,7 @@ mlan_status moal_recv_event(t_void *pmoal, pmlan_event pmevent)
+ 					skb->len);
+ #endif
+ #endif
++#endif
+ #endif
+ 			dev_kfree_skb_any(skb);
+ 			kfree(tx_info);
