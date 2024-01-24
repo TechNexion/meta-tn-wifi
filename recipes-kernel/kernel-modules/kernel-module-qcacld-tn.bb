@@ -15,4 +15,4 @@ S = "${WORKDIR}/git"
 
 EXTRA_OEMAKE:append= " CONFIG_CLD_HL_SDIO_CORE=y TARGET_BUILD_VARIANT=user CONFIG_P2P_INTERFACE=y"
 
-COMPATIBLE_MACHINE = "mx6-nxp-bsp|mx7-nxp-bsp|mx8-nxp-bsp"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp)"
