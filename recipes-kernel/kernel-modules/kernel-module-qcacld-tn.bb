@@ -8,7 +8,8 @@ inherit module
 SRCREV = "5e05d948f46ff63aa844cd2067af0c2ab2a88246"
 
 SRC_URI = "git://github.com/TechNexion/qcacld-2.0.git;protocol=https;branch=${SRCBRANCH} \
-"
+           file://0001-qcacld-2.0-modify-the-callback-function-from-ndo_do_.patch \
+           "
 SRCBRANCH = "tn-CNSS.LEA.NRT_3.1"
 
 S = "${WORKDIR}/git"

@@ -11,7 +11,7 @@ inherit packagegroup
 PACKAGES:remove:brcm = "linux-firmware-brcm"
 PACKAGES:remove:ath-pci = "linux-firmware-ath10k"
 PACKAGES:remove:qca = "linux-firmware-qca"
-RDEPENDS:${PN}:append:fcc-qca = " linux-firmware-qca-fcc-tn"
+RDEPENDS:${PN}:append = " linux-firmware-qca-fcc-tn"
 
 # Extra Kernel Modules
 RDEPENDS:${PN}:append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '',d)}"
