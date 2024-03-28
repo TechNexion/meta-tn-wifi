@@ -50,4 +50,4 @@ do_install() {
 FILES:${PN}-dbg += "${nonarch_base_libdir}/firmware/.debug"
 FILES:${PN} += "${nonarch_base_libdir}/firmware/"
 
-COMPATIBLE_MACHINE = "(mx6-nxp-bsp|mx7-nxp-bsp|mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp)"
