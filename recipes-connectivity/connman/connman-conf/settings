@@ -1,0 +1,5 @@
+[WiFi]
+Enable=true
+
+[Bluetooth]
+Enable=true
