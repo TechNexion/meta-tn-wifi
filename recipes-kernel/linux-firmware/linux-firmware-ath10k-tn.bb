@@ -16,6 +16,8 @@ SRC_URI = "git://git.codelinaro.org/clo/ath-firmware/ath10k-firmware.git;protoco
 
 S = "${WORKDIR}"
 
+SRCREV_FORMAT = "ath10k qca"
+
 # Gitlab Personal Access Token: e.g. SbtQ_mC4fvJRA88_9jB7
 OVERRIDES:append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
 TOKEN = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else '%s' % d.getVar('PA_TOKEN', True)}"
