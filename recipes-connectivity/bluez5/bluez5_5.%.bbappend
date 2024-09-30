@@ -2,6 +2,11 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Add patches for QCA modules with Qca6174 and Qca9377-3 chips
 SRC_URI += " \
+            file://0001-bluetooth-Add-bluetooth-support-for-QCA6174-chip.patch \
+            file://0002-hciattach-set-flag-to-enable-HCI-reset-on-init.patch \
+            file://0003-hciattach-instead-of-strlcpy-with-strncpy-to-avoid-r.patch \
+            file://0004-Add-support-for-Tufello-1.1-SOC.patch \
+            file://0005-bluetooth-Add-support-for-multi-baud-rate.patch \
             file://0001-hciattach_rome-do-not-override-module-MAC-address.patch \
             file://0002-hciattach_rome-set-IBS-to-disable-and-PCM-to-slave-b.patch \
             file://0003-hciattach_rome-load-3.2-version-of-firmware-by-defau.patch \
