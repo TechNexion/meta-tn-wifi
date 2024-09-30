@@ -4,6 +4,7 @@ Date: Fri, 21 Jun 2019 14:16:15 +0800
 Subject: [PATCH 2/3] hciattach_rome: set IBS to disable and PCM to slave by
  default
 
+Upstream-Status: Pending
 ---
  tools/hciattach_rome.c | 22 +++++++++++-----------
  1 file changed, 11 insertions(+), 11 deletions(-)

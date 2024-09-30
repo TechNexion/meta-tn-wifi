@@ -3,6 +3,7 @@ From: Ray Chang <ray.chang@technexion.com>
 Date: Mon, 29 Jul 2019 17:27:49 +0800
 Subject: [PATCH] hciattach_rome: fix baud rate synchronization issue
 
+Upstream-Status: Pending
 ---
  tools/hciattach_rome.c | 23 +++++------------------
  1 file changed, 5 insertions(+), 18 deletions(-)

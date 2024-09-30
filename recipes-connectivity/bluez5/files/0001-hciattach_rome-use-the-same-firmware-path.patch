@@ -3,6 +3,7 @@ From: Ray Chang <ray.chang@technexion.com>
 Date: Thu, 13 Feb 2020 10:11:41 +0800
 Subject: [PATCH] hciattach_rome: use the same firmware path
 
+Upstream-Status: Pending
 ---
  tools/hciattach_rome.h | 22 +++++++++++-----------
  1 file changed, 11 insertions(+), 11 deletions(-)
