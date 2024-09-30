@@ -3,6 +3,7 @@ From: Ray Chang <ray.chang@technexion.com>
 Date: Fri, 21 Jun 2019 14:17:16 +0800
 Subject: [PATCH 3/3] hciattach_rome: load 3.2 version of firmware by default
 
+Upstream-Status: Pending
 ---
  tools/hciattach_rome.h | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
