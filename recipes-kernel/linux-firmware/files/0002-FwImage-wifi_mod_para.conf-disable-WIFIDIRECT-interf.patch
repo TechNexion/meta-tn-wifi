@@ -4,6 +4,7 @@ Date: Wed, 1 Feb 2023 15:01:31 +0800
 Subject: [PATCH 2/2] FwImage: wifi_mod_para.conf: disable WIFIDIRECT interface
  for IW416
 
+Upstream-Status: Pending
 ---
  nxp/wifi_mod_para.conf | 1 +
  1 file changed, 1 insertion(+)
