@@ -3,6 +3,7 @@ From: Ray Chang <ray.chang@technexion.com>
 Date: Tue, 18 Jul 2023 11:35:06 +0800
 Subject: [PATCH] FwImage: wifi_mod_para.conf: enable mfg mode for IW416
 
+Upstream-Status: Pending
 ---
  nxp/wifi_mod_para.conf | 10 +++-------
  1 file changed, 3 insertions(+), 7 deletions(-)

@@ -4,6 +4,7 @@ Date: Wed, 1 Feb 2023 14:59:56 +0800
 Subject: [PATCH 1/2] FwImage: wifi_mod_para.conf: disable power saving for
  IW416
 
+Upstream-Status: Pending
 ---
  nxp/wifi_mod_para.conf | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
