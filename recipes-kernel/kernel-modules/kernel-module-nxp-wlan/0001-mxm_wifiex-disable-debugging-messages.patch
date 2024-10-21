@@ -3,6 +3,7 @@ From: Ray Chang <ray.chang@technexion.com>
 Date: Tue, 16 Jul 2024 11:17:01 +0800
 Subject: [PATCH] mxm_wifiex: disable debugging messages
 
+Upstream-Status: Pending
 ---
  Makefile           |  2 +-
  mlinux/moal_shim.c | 14 ++++++++++++++
