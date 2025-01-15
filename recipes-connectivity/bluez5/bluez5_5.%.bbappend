@@ -23,7 +23,7 @@ SRC_URI += " file://0001-bluetooth-Add-bluetooth-support-for-QCA6174-chip.patch 
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd"
 
-do_install_append() {
+do_install:append() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'fcc', 'false', 'true', d)}; then
         if [ ! -z "${SERIAL_BLUETOOTH}" ] ; then
                 default_baudrate=`echo "${SERIAL_BLUETOOTH}" | sed 's/\;.*//'`

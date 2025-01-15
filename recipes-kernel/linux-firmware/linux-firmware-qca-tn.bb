@@ -28,14 +28,14 @@ SRC_URI += " \
 S = "${WORKDIR}"
 
 # Gitlab Personal Access Token: e.g. SbtQ_mC4fvJRA88_9jB7
-OVERRIDES_append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
+OVERRIDES:append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
 TOKEN = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else '%s' % d.getVar('PA_TOKEN', True)}"
-SRCSERVER_token = "git://gitlab.com/technexion-imx/qca_firmware.git"
-SRCOPTION_token = ";protocol=https;user=oauth2:${TOKEN}"
-SRCBRANCH_token = "caf-wlan/CNSS.LEA.NRT_3.0"
-SRCREV_token = "be98108d402e3aa76e78b978a986db052497014d"
-SRC_URI_token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
-S_token = "${WORKDIR}/git"
+SRCSERVER:token = "git://gitlab.com/technexion-imx/qca_firmware.git"
+SRCOPTION:token = ";protocol=https;user=oauth2:${TOKEN}"
+SRCBRANCH:token = "caf-wlan/CNSS.LEA.NRT_3.0"
+SRCREV:token = "be98108d402e3aa76e78b978a986db052497014d"
+SRC_URI:token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
+S:token = "${WORKDIR}/git"
 
 python do_pre_fetch() {
     # check for existing qca firmware files and use them if available
