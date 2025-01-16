@@ -7,6 +7,7 @@ On some qca devices, correct setup of BT+WLAN co-existance requires
 HCI reset being set at the start of power on sequence. Sending HCI
 resets has no side effect.
 
+Upstream-Status: Pending
 Change-Id: I71cb367d10d4d19d82b41af6a4a0b8b2f770f691
 Signed-off-by: Rupesh Tatiya <rtatiya@codeaurora.org>
 ---
@@ -20,13 +21,13 @@ index 200f734..d03ed46 100644
 @@ -1158,6 +1158,9 @@ static int init_uart(char *dev, struct uart_t *u, int send_break, int raw)
  	if (u->flags & AMP_DEV)
  		flags |= 1 << HCI_UART_CREATE_AMP;
- 
+
 +	if (!strncmp(u->type, "qca", 3))
 +		flags |= 1 << HCI_UART_RESET_ON_INIT;
 +
  	fd = open(dev, O_RDWR | O_NOCTTY);
  	if (fd < 0) {
  		perror("Can't open serial port");
--- 
+--
 1.9.1
 

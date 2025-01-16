@@ -7,6 +7,7 @@ Currently BT operates only at 3M baud rate. Provide option
 to configure the pre-defined baud rate values as supported by the
 target platform.
 (based on CAF commit:f7a564dd593b1ba29a3395e1078ac180e4a02ed3)
+Upstream-Status: Pending
 ---
  tools/hciattach.c      |  58 +++++++++++++++++++++++++-
  tools/hciattach.h      |   2 +-
@@ -23,7 +24,7 @@ index d03ed46..d64601e
 @@ -88,6 +88,62 @@ static void sig_alarm(int sig)
  	exit(1);
  }
- 
+
 +int uart_speed(int s)
 +{
 +	switch (s) {
@@ -90,7 +91,7 @@ index d03ed46..d64601e
 -        return qca_soc_init(fd, u->bdaddr);
 +        return qca_soc_init(fd, u->speed, u->bdaddr);
  }
- 
+
  static int qualcomm(int fd, struct uart_t *u, struct termios *ti)
 diff --git a/tools/hciattach.h b/tools/hciattach.h
 old mode 100644
@@ -115,8 +116,8 @@ index 188bcc1..fc843f6
 +++ b/tools/hciattach_rome.c
 @@ -1574,7 +1574,7 @@ static void flow_control(int fd, int opt)
  }
- 
- 
+
+
 -int rome_set_baudrate_req(int fd)
 +int rome_set_baudrate_req(int fd, int local_baud_rate, int controller_baud_rate)
  {
@@ -128,7 +129,7 @@ index 188bcc1..fc843f6
      cmd_hdr->plen     = VSC_SET_BAUDRATE_REQ_LEN;
 -    cmd[4]  = BAUDRATE_3000000;
 +    cmd[4]  = controller_baud_rate;
- 
+
      /* Total length of the packet to be sent to the Controller */
      size = (HCI_CMD_IND + HCI_COMMAND_HDR_SIZE + VSC_SET_BAUDRATE_REQ_LEN);
 @@ -1604,7 +1604,7 @@ int rome_set_baudrate_req(int fd)
@@ -137,13 +138,13 @@ index 188bcc1..fc843f6
      /* Change Local UART baudrate to high speed UART */
 -    userial_vendor_set_baud(USERIAL_BAUD_3M);
 +    userial_vendor_set_baud(local_baud_rate);
- 
+
      /* Flow on after changing local uart baudrate */
      flow_control(fd, MSM_ENABLE_FLOW_CTRL);
 @@ -1630,7 +1630,7 @@ error:
  }
- 
- 
+
+
 -int rome_hci_reset_req(int fd)
 +int rome_hci_reset_req(int fd, char baud)
  {
@@ -151,17 +152,17 @@ index 188bcc1..fc843f6
      unsigned char cmd[HCI_MAX_CMD_SIZE];
 @@ -1662,7 +1662,7 @@ int rome_hci_reset_req(int fd)
      }
- 
+
      /* Change Local UART baudrate to high speed UART */
 -     userial_vendor_set_baud(USERIAL_BAUD_3M);
 +     userial_vendor_set_baud(baud);
- 
+
      /* Flow on after changing local uart baudrate */
      flow_control(fd, MSM_ENABLE_FLOW_CTRL);
 @@ -1728,10 +1728,69 @@ int read_bd_address(unsigned char *bdaddr)
    return 0;
  }
- 
+
 -int qca_soc_init(int fd, char *bdaddr)
 +int isSpeedValid(int speed, int *local_baud_rate, int *controller_baud_rate)
 +{
@@ -227,12 +228,12 @@ index 188bcc1..fc843f6
      int err = -1;
 -    int size;
 +    int size, local_baud_rate = 0, controller_baud_rate = 0;
- 
+
      vnd_userial.fd = fd;
- 
+
 @@ -1789,7 +1848,7 @@ int qca_soc_init(int fd, char *bdaddr)
                  }
- 
+
                  /* Change baud rate 115.2 kbps to 3Mbps*/
 -                err = rome_hci_reset_req(fd);
 +                err = rome_hci_reset_req(fd, local_baud_rate);
@@ -247,7 +248,7 @@ index 188bcc1..fc843f6
          case TUFELLO_VER_1_1:
              rampatch_file_path = TF_RAMPATCH_TLV_1_0_1_PATH;
              nvm_file_path = TF_NVM_TLV_1_0_1_PATH;
- 
+
  download:
 -            /* Change baud rate 115.2 kbps to 3Mbps*/
 -            err = rome_set_baudrate_req(fd);
@@ -273,12 +274,12 @@ index 188bcc1..fc843f6
 +                }
 +             }
              fprintf(stderr, "%s: Baud rate changed successfully \n", __FUNCTION__);
- 
+
              /* Donwload TLV files (rampatch, NVM) */
 @@ -1842,8 +1914,17 @@ download:
              }
              fprintf(stderr, "%s: Download TLV file successfully \n", __FUNCTION__);
- 
+
 +            /*
 +             * Overriding the baud rate value in NVM file with the user
 +             * requested baud rate, since default baud rate in NVM file is 3M.
@@ -303,7 +304,7 @@ index 917af55..62f2ac0
 @@ -83,6 +83,29 @@ typedef struct
  #define USERIAL_BAUD_4M         15
  #define USERIAL_BAUD_AUTO       16
- 
+
 +/* Vendor specific baud rate values */
 +#define UART_Baud_Rate_Baud_9600        4
 +#define UART_Baud_Rate_Baud_19200       3
@@ -330,6 +331,6 @@ index 917af55..62f2ac0
  #ifndef FALSE
  #define FALSE  0
  #endif
--- 
+--
 1.9.1
 

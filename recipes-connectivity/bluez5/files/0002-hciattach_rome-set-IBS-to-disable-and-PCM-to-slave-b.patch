@@ -3,7 +3,7 @@ From: Ray Chang <ray.chang@technexion.com>
 Date: Fri, 21 Jun 2019 14:16:15 +0800
 Subject: [PATCH 2/3] hciattach_rome: set IBS to disable and PCM to slave by
  default
-
+Upstream-Status: Pending
 ---
  tools/hciattach_rome.c | 22 +++++++++++-----------
  1 file changed, 11 insertions(+), 11 deletions(-)
@@ -35,7 +35,7 @@ index 63651e0..25c9619 100755
 @@ -1053,16 +1053,16 @@ int rome_get_tlv_file(char *file_path)
                  if ((pcm_value =
                      get_value_from_config(FW_CONFIG_FILE_PATH, "PCM")) >= 0) {
- 
+
 -                    if (pcm_value == FWCONF_PCM_SLAVE) {
 -                        nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_1] |=
 -					(1 << FWCONF_PCM_ROLE_BIT_OFFSET);
@@ -55,6 +55,6 @@ index 63651e0..25c9619 100755
                      }
                  }
              }
--- 
+--
 2.7.4
 

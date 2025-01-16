@@ -2,7 +2,7 @@ From 628e361599227c7c56c664869ff1fccdd2e28f08 Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray.chang@technexion.com>
 Date: Mon, 29 Jul 2019 17:27:49 +0800
 Subject: [PATCH] hciattach_rome: fix baud rate synchronization issue
-
+Upstream-Status: Pending
 ---
  tools/hciattach_rome.c | 23 +++++------------------
  1 file changed, 5 insertions(+), 18 deletions(-)
@@ -13,7 +13,7 @@ index 25c9619..4cd4cd6 100755
 +++ b/tools/hciattach_rome.c
 @@ -1935,25 +1935,12 @@ int qca_soc_init(int fd, int speed, char *bdaddr)
              nvm_file_path = TF_NVM_TLV_1_0_1_PATH;
- 
+
  download:
 -            /* Check if user requested for 115200 kbps */
 -            if (speed == 115200) {
@@ -39,9 +39,9 @@ index 25c9619..4cd4cd6 100755
 -                }
 -             }
 -            fprintf(stderr, "%s: Baud rate changed successfully \n", __FUNCTION__);
- 
+
              /* Donwload TLV files (rampatch, NVM) */
              err = rome_download_tlv_file(fd);
--- 
+--
 2.7.4
 

@@ -6,6 +6,7 @@ Subject: [PATCH 4/5] Add support for Tufello 1.1 SOC
 Enable mechanism to download firmware for Tufello 1.1 SOC.
 Also, use correct firmware file path for Tufello 1.0.
 
+Upstream-Status: Pending
 Change-Id: I915e48023e45de9e2550336a3de9a07f2b788189
 Signed-off-by: Rupesh Tatiya <rtatiya@codeaurora.org>
 Signed-off-by: Fugang Duan <fugang.duan@nxp.com>
@@ -25,11 +26,11 @@ index c3e9fde..188bcc1 100644
      int  total_segment, remain_size, i, err = -1;
      unsigned char wait_cc_evt = FALSE;
 +    unsigned int rom = rome_ver >> 16;
- 
+
      total_segment = tlv_size/MAX_SIZE_PER_TLV_SEGMENT;
      remain_size = (tlv_size < MAX_SIZE_PER_TLV_SEGMENT)?\
 @@ -1163,14 +1164,15 @@ int rome_tlv_dnld_req(int fd, int tlv_size)
- 
+
      for(i = 0; i < total_segment; i++) {
          if((i+1) == total_segment) {
 -             if ((rome_ver >= ROME_VER_1_1) && (rome_ver < ROME_VER_3_2) &&
@@ -49,7 +50,7 @@ index c3e9fde..188bcc1 100644
 @@ -1189,13 +1191,14 @@ int rome_tlv_dnld_req(int fd, int tlv_size)
              goto error;
      }
- 
+
 -    if ((rome_ver >= ROME_VER_1_1) && (rome_ver < ROME_VER_3_2) && (gTlv_type == TLV_TYPE_PATCH)) {
 +    if ((rom >= ROME_PATCH_VER_0100) && (rom < ROME_PATCH_VER_0302) &&
 +                                               (gTlv_type == TLV_TYPE_PATCH)) {
@@ -70,7 +71,7 @@ index c3e9fde..188bcc1 100644
 +        case TUFELLO_VER_1_1:
 +            rampatch_file_path = TF_RAMPATCH_TLV_1_0_1_PATH;
 +            nvm_file_path = TF_NVM_TLV_1_0_1_PATH;
- 
+
  download:
              /* Change baud rate 115.2 kbps to 3Mbps*/
 diff --git a/tools/hciattach_rome.h b/tools/hciattach_rome.h
@@ -94,7 +95,7 @@ index 9770d0b..917af55 100644
 +#define TF_RAMPATCH_TLV_1_0_1_PATH      "/lib/firmware/qca/tfbtfw11.tlv"
 +#define TF_NVM_TLV_1_0_1_PATH           "/lib/firmware/qca/tfbtnv11.bin"
 +#endif
- 
+
  /* This header value in rampatch file decides event handling mechanism in the HOST */
  #define ROME_SKIP_EVT_NONE     0x00
 @@ -349,6 +358,7 @@ enum{
@@ -104,7 +105,7 @@ index 9770d0b..917af55 100644
 +    ROME_SOC_ID_23 = 0x00000023,
      ROME_SOC_ID_44 = 0x00000044
  };
- 
+
 @@ -360,7 +370,8 @@ enum{
      ROME_VER_2_1 = ((ROME_PATCH_VER_0200 << 16 ) | ROME_SOC_ID_11 ),
      ROME_VER_3_0 = ((ROME_PATCH_VER_0300 << 16 ) | ROME_SOC_ID_22 ),
@@ -113,8 +114,8 @@ index 9770d0b..917af55 100644
 +    TUFELLO_VER_1_0 = ((ROME_PATCH_VER_0300 << 16 ) | ROME_SOC_ID_13 ),
 +    TUFELLO_VER_1_1 = ((ROME_PATCH_VER_0302 << 16 ) | ROME_SOC_ID_23 ),
  };
- 
+
  #ifdef USE_GLIB
--- 
+--
 1.9.1
 
