@@ -12,6 +12,7 @@ SRC_URI += " \
             file://0003-hciattach_rome-load-3.2-version-of-firmware-by-defau.patch \
             file://0004-hciattach_rome-fix-baud-rate-synchronization-issue.patch \
             file://0001-hciattach_rome-use-the-same-firmware-path.patch \
+            file://0001-hciattach_rome-fix-implicit-declaration-error-on-sty.patch \
             file://serial-btattach@.service \
             file://serial-btattach@.timer \
             file://btattach.sh \
