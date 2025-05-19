@@ -28,9 +28,9 @@ do_install:append() {
                 install -d ${D}/opt/btattach/
                 install -d ${D}${systemd_unitdir}/system/
                 install -d ${D}${sysconfdir}/systemd/system/timers.target.wants/
-                install -m 0755 ${WORKDIR}/btattach.sh ${D}/opt/btattach/
-                install -m 0644 ${WORKDIR}/serial-btattach@.service ${D}${systemd_unitdir}/system/
-                install -m 0644 ${WORKDIR}/serial-btattach@.timer ${D}${systemd_unitdir}/system/
+                install -m 0755 ${UNPACKDIR}/btattach.sh ${D}/opt/btattach/
+                install -m 0644 ${UNPACKDIR}/serial-btattach@.service ${D}${systemd_unitdir}/system/
+                install -m 0644 ${UNPACKDIR}/serial-btattach@.timer ${D}${systemd_unitdir}/system/
                 sed -i -e s/\@BAUDRATE\@/$default_baudrate/g ${D}/opt/btattach/btattach.sh
 
                 tmp="${SERIAL_BLUETOOTH}"
