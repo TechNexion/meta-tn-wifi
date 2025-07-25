@@ -9,4 +9,4 @@ PACKAGES:remove:ath-pci = "linux-firmware-ath10k"
 RDEPENDS:${PN}:append:ath-pci = " linux-firmware-ath10k-tn"
 
 # Extra Kernel Modules
-RDEPENDS:${PN}:append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '', d)}"
+RDEPENDS:${PN}:append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '', d)}  wireless-tools"
