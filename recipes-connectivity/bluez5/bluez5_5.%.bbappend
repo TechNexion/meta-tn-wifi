@@ -1,5 +1,15 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
+PV = "5.75"
+SRC_URI[sha256sum] = "988cb3c4551f6e3a667708a578f5ca9f93fc896508f98f08709be4f8ab033c2f"
+SRC_URI:remove = "file://0001-gdbus-define-MAX_INPUT-for-musl.patch \
+           file://0001-shared-ad-fix-std-c23-build-failure.patch \
+           file://0002-shared-shell-fix-std-c23-build-failure.patch \
+           file://0003-shared-gatt-helpers-fix-std-c23-build-failure.patch \
+           "
+SRC_URI += " file://0001-configure.ac-Fix-disable-cups.patch "
+PACKAGECONFIG[asha-profiles] = ""
+
 # Add patches for QCA modules with Qca6174 and Qca9377-3 chips
 SRC_URI += " \
             file://0001-bluetooth-Add-bluetooth-support-for-QCA6174-chip.patch \
