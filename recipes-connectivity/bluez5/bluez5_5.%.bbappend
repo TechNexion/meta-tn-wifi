@@ -11,7 +11,7 @@ SRC_URI += " file://0001-configure.ac-Fix-disable-cups.patch "
 PACKAGECONFIG[asha-profiles] = ""
 
 # Add patches for QCA modules with Qca6174 and Qca9377-3 chips
-SRC_URI += " \
+QCA_SRC_URI = " \
             file://0001-bluetooth-Add-bluetooth-support-for-QCA6174-chip.patch \
             file://0002-hciattach-set-flag-to-enable-HCI-reset-on-init.patch \
             file://0003-hciattach-instead-of-strlcpy-with-strncpy-to-avoid-r.patch \
@@ -28,11 +28,15 @@ SRC_URI += " \
             file://btattach.sh \
 "
 
+QCA_SRC_URI:mx9-nxp-bsp = ""
+
+SRC_URI:append = "${QCA_SRC_URI}"
+
 # As this package is tied to systemd, only build it when we're also building systemd.
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd"
 
-do_install:append() {
+install_btservice() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'fcc-qca', 'false', bb.utils.contains('DISTRO_FEATURES', 'fcc-nxp', 'false', 'true', d), d)}; then
         if [ ! -z "${SERIAL_BLUETOOTH}" ] ; then
                 default_baudrate=`echo "${SERIAL_BLUETOOTH}" | sed 's/\;.*//'`
@@ -58,6 +62,14 @@ do_install:append() {
                 done
         fi
     fi
+}
+
+do_install:append() {
+        install_btservice
+}
+
+do_install:remove:mx9-nxp-bsp() {
+        install_btservice
 }
 
 FILES:${PN} += "/opt"
