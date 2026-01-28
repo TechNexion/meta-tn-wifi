@@ -1,0 +1,38 @@
+From bd93974315fc249576bc6d7d6a9783d7f22e1e77 Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Wed, 28 Jan 2026 16:32:45 +0800
+Subject: [PATCH] libxtables: Fix crash in xtables_free_opts by avoiding double
+ free
+
+When enabling WiFi tethering via connmanctl, a D-Bus error occurs:
+"Message recipient disconnected from message bus without replying"
+
+This is caused by xtables_free_opts() attempting to free(xt_params->opts)
+even when it still points to the static xt_params->orig_opts, leading
+to a memory corruption/crash.
+
+Add a check to ensure we only free opts when they have been dynamically
+reallocated (i.e., opts != orig_opts).
+
+Upstream-Status: Pending
+---
+ libxtables/xtables.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/libxtables/xtables.c b/libxtables/xtables.c
+index 5fc50a6..068bd0b 100644
+--- a/libxtables/xtables.c
++++ b/libxtables/xtables.c
+@@ -112,8 +112,10 @@ void basic_exit_err(enum xtables_exittype status, const char *msg, ...)
+ 
+ void xtables_free_opts(int unused)
+ {
+-	free(xt_params->opts);
+-	xt_params->opts = NULL;
++	if (xt_params->opts != xt_params->orig_opts) {
++		free(xt_params->opts);
++		xt_params->opts = NULL;
++	}
+ }
+ 
+ struct option *xtables_merge_options(struct option *orig_opts,
