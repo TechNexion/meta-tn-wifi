@@ -1,4 +1,4 @@
-# Copyright (C) 2020 TechNexion Ltd.
+# Copyright (C) 2020-2026 TechNexion Ltd.
 
 SUMMARY = "WiFi FCC firmware files for TechNexion NXP module"
 SECTION = "kernel"
@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "\
 SRCBRANCH = "master"
 TN_NXP_FCC_FIRMWARE_SRC = "git://gitlab.com/technexion-imx/nxp_fcc_firmware.git;protocol=https;user=oauth2:${PA_TOKEN}"
 SRC_URI = "${TN_NXP_FCC_FIRMWARE_SRC};branch=${SRCBRANCH}"
-SRCREV = "3001a1455be7cdf3cb38508e794fa0e6c011188e"
+SRCREV = "a712930ac0a15a158444ff1418a1026b390c57e8"
 
 do_check() {
     if [ -z "${PA_TOKEN}" ]; then
@@ -26,6 +26,7 @@ S = "${WORKDIR}/git"
 do_install() {
     install -d ${D}${nonarch_base_libdir}/firmware/nxp
     install -m 0644 ${S}/sdio8978_uart_combo.bin ${D}${nonarch_base_libdir}/firmware/nxp
+    install -m 0644 ${S}/sduart_nw61x_mfg_v1.bin.se ${D}${nonarch_base_libdir}/firmware/nxp
 }
 
 FILES:${PN}-dbg += "${nonarch_base_libdir}/firmware/.debug"
