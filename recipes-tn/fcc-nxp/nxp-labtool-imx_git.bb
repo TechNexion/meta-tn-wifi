@@ -12,13 +12,14 @@ NXP_LABTOOL_SRC = "git://gitlab.com/technexion-imx/mfgbridge.git;protocol=https;
 SRC_URI = "${NXP_LABTOOL_SRC};protocol=ssh;branch=${SRCBRANCH} "
 
 PV = "1.0+git"
-SRCREV = "c1944d13539526207a6778f0d50abe9d3d37a039"
+SRCREV = "730452899aad0527c34786ffe4f01317eb839b19"
 
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd fcc-nxp-labtool-imx "
 
 DEPENDS += "virtual/kernel bluez5 linux-libc-headers kernel-module-nxp-wlan"
-RDEPENDS:${PN} = "bluez5 kernel-module-nxp-wlan"
+RDEPENDS:${PN} = "bluez5 kernel-module-nxp-wlan kernel-module-btnxpuart"
+
 
 S = "${WORKDIR}/git"
 
