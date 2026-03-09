@@ -6,13 +6,13 @@ LICENSE = "CLOSED"
 SECTION = "app"
 LIC_FILES_CHKSUM = ""
 
-SRCBRANCH = "labtool_native_2.0.0.41.0-18.80.3.p27.6"
+SRCBRANCH = "labtool_native_2.0.0.41.0-18.80.3.p27.6_release"
 NXP_LABTOOL_SRC = "git://gitlab.com/technexion-imx/mfgbridge.git;protocol=https;user=oauth2:${PA_TOKEN}"
 
 SRC_URI = "${NXP_LABTOOL_SRC};protocol=ssh;branch=${SRCBRANCH} "
 
 PV = "1.0+git"
-SRCREV = "730452899aad0527c34786ffe4f01317eb839b19"
+SRCREV = "21ba5c248e041ff948ea19c3f001e2e90524f259"
 
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd fcc-nxp-labtool-imx "
@@ -42,8 +42,13 @@ do_configure () {
 	:
 }
 
-do_compile () {
-	oe_runmake
+do_compile() {
+    if [ -e "${S}/Makefile" ]; then
+        bbnote "Makefile found, starting compilation..."
+        oe_runmake
+    else
+        bbnote "No Makefile found, skipping compilation step."
+    fi
 }
 
 LAB_CONF_DIR = "${sysconfdir}/nxp-labconf"
