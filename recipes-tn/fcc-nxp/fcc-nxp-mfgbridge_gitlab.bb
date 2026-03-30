@@ -20,8 +20,6 @@ SRCREV = "5d77a9dcaebf6fcbf27b03bc69189aec39167011"
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd fcc-nxp"
 
-S = "${WORKDIR}/git"
-
 DEPENDS:append = "bluez5"
 RDEPENDS:${PN} = "bluez5"
 
@@ -62,9 +60,9 @@ do_install() {
     install -d ${D}${systemd_unitdir}/system/
     install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
     install -d ${D}${sysconfdir}/systemd/system/timers.target.wants/
-    install -m 0644 ${WORKDIR}/fcc-mfgbridge.service ${D}${systemd_unitdir}/system/
-    install -m 0644 ${WORKDIR}/fcc-bt@.service ${D}${systemd_unitdir}/system/
-    install -m 0644 ${WORKDIR}/fcc-bt@.timer ${D}${systemd_unitdir}/system/
+    install -m 0644 ${S}/fcc-mfgbridge.service ${D}${systemd_unitdir}/system/
+    install -m 0644 ${S}/fcc-bt@.service ${D}${systemd_unitdir}/system/
+    install -m 0644 ${S}/fcc-bt@.timer ${D}${systemd_unitdir}/system/
     sed -i -e s/\@BAUDRATE\@/$default_baudrate/g ${D}${systemd_unitdir}/system/fcc-bt@.service
     # enable the services
     ln -sf ${systemd_unitdir}/system/fcc-mfgbridge.service \
@@ -73,7 +71,7 @@ do_install() {
             ${D}${sysconfdir}/systemd/system/timers.target.wants/fcc-bt@$ttydev.timer
 
     install -d ${D}${sysconfdir}/systemd/network/
-    install -m 0644 ${WORKDIR}/20-wired.network ${D}${sysconfdir}/systemd/network/
+    install -m 0644 ${S}/20-wired.network ${D}${sysconfdir}/systemd/network/
     install -d ${D}${sysconfdir}/bluetooth/
-    install -m 0644 ${WORKDIR}/main.conf ${D}${sysconfdir}/bluetooth/
+    install -m 0644 ${S}/main.conf ${D}${sysconfdir}/bluetooth/
 }

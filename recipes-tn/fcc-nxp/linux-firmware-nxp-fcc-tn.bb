@@ -21,8 +21,6 @@ do_check() {
 
 addtask check before do_fetch
 
-S = "${WORKDIR}/git"
-
 do_install() {
     install -d ${D}${nonarch_base_libdir}/firmware/nxp
     install -m 0644 ${S}/sdio8978_uart_combo.bin ${D}${nonarch_base_libdir}/firmware/nxp
