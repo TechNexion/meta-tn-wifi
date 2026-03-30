@@ -13,8 +13,7 @@ SRCREVQCABT = "be98108d402e3aa76e78b978a986db052497014d"
 SRC_URI = "git://git.codelinaro.org/clo/ath-firmware/ath10k-firmware.git;protocol=https;branch=main;rev=${SRCREVATH10K};destsuffix=ath10k \
 "
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}"
 
 SRCREV_FORMAT = "ath10k qca"
 

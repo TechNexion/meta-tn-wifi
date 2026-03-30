@@ -21,8 +21,6 @@ DEPENDS += "virtual/kernel bluez5 linux-libc-headers kernel-module-nxp-wlan"
 RDEPENDS:${PN} = "bluez5 kernel-module-nxp-wlan kernel-module-btnxpuart"
 
 
-S = "${WORKDIR}/git"
-
 FILES:${PN} += " ${sysconfdir}/nxp-labconf/* "
 
 INCLUDE_PATH = " -I${STAGING_INCDIR}"

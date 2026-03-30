@@ -11,8 +11,6 @@ SRC_URI = "git://github.com/TechNexion/qcacld-2.0.git;protocol=https;branch=${SR
 "
 SRCBRANCH = "tn-CNSS.LEA.NRT_3.1"
 
-S = "${WORKDIR}/git"
-
 EXTRA_OEMAKE:append = " CONFIG_CLD_HL_SDIO_CORE=y"
 EXTRA_OEMAKE:append = " TARGET_BUILD_VARIANT=user"
 EXTRA_OEMAKE:append = " CONFIG_P2P_INTERFACE=y"

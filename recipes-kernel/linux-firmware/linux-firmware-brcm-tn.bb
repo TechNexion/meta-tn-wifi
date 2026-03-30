@@ -17,8 +17,6 @@ SRC_URI += " \
     file://AP6212_4.2/BT/bcm43438a0.hcd \
 "
 
-S = "${WORKDIR}"
-
 # Gitlab Personal Access Token: e.g. SbtQ_mC4fvJRA88_9jB7
 OVERRIDES:append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
 TOKEN = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else '%s' % d.getVar('PA_TOKEN', True)}"
@@ -27,7 +25,6 @@ SRCOPTION:token = ";protocol=https;user=oauth2:${TOKEN}"
 SRCBRANCH:token = "ampak_4.2"
 SRCREV:token = "${AUTOREV}"
 SRC_URI:token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
-S:token = "${WORKDIR}/git"
 
 python do_pre_fetch() {
     # check for existing qca firmware files and use them if available

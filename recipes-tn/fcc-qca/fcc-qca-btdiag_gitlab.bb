@@ -16,8 +16,6 @@ SRCREV = "a441bdd498fd369de860710e2e0576240df21715"
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd fcc-qca"
 
-S = "${WORKDIR}/git"
-
 FILES:${PN} += " ${sbindir}/Btdiag \
                  ${systemd_unitdir}/system/fcc-btdiag@.service \
 "
@@ -37,7 +35,7 @@ do_install() {
     if [ -n "${SERIAL_BLUETOOTH}" ] ; then
         install -d ${D}${systemd_unitdir}/system/
         install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
-        install -m 0644 ${WORKDIR}/fcc-btdiag@.service ${D}${systemd_unitdir}/system/
+        install -m 0644 ${S}/fcc-btdiag@.service ${D}${systemd_unitdir}/system/
         # enable the service
         ttydev=`echo "${SERIAL_BLUETOOTH}" | sed -e 's/^[0-9]*\;//' -e 's/\;.*//'`
         ln -sf ${systemd_unitdir}/system/fcc-btdiag@.service \

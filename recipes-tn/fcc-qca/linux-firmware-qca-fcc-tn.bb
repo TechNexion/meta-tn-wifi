@@ -21,8 +21,6 @@ do_check() {
 
 addtask check before do_fetch
 
-S = "${WORKDIR}/git"
-
 do_install() {
     install -d ${D}${nonarch_base_libdir}/firmware/
     cp -r ${S}/qca/ ${D}${nonarch_base_libdir}/firmware/

@@ -25,8 +25,6 @@ SRC_URI += " \
     file://qca/rampatch_tlv_3.2.tlv \
 "
 
-S = "${WORKDIR}"
-
 # Gitlab Personal Access Token: e.g. SbtQ_mC4fvJRA88_9jB7
 OVERRIDES:append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
 TOKEN = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else '%s' % d.getVar('PA_TOKEN', True)}"
@@ -35,7 +33,6 @@ SRCOPTION:token = ";protocol=https;user=oauth2:${TOKEN}"
 SRCBRANCH:token = "caf-wlan/CNSS.LEA.NRT_3.0"
 SRCREV:token = "eba09b0255525042d22f2db5f25aec03da5bea5f"
 SRC_URI:token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
-S:token = "${WORKDIR}/git"
 
 python do_pre_fetch() {
     # check for existing qca firmware files and use them if available

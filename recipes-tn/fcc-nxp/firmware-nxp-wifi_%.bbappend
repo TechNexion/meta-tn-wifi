@@ -14,5 +14,5 @@ python () {
 install_fcc_custom_wifi_conf() {
     install -d ${D}${nonarch_base_libdir}/firmware/nxp/
     bbnote "Applying custom FCC Bluez5 main.conf from meta-tn-wifi"
-    install -m 0644 ${WORKDIR}/sources-unpack/wifi_mod_para.conf ${D}${nonarch_base_libdir}/firmware/nxp/
+    install -m 0644 ${S}/sources-unpack/wifi_mod_para.conf ${D}${nonarch_base_libdir}/firmware/nxp/
 }

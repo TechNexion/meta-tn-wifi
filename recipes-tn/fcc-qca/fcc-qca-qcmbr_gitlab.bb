@@ -18,8 +18,6 @@ SRCREV = "570a678057d101b8fca52a6388949be21ccf42b2"
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd fcc-qca"
 
-S = "${WORKDIR}/git"
-
 FILES:${PN} += " ${sbindir}/Qcmbr \
                  ${systemd_unitdir}/system/fcc-qcmbr.service \
                  ${sysconfdir}/systemd/network/20-wired.network \
@@ -40,13 +38,13 @@ do_install() {
 
     install -d ${D}${systemd_unitdir}/system/
     install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
-    install -m 0644 ${WORKDIR}/fcc-qcmbr.service ${D}${systemd_unitdir}/system/
+    install -m 0644 ${S}/fcc-qcmbr.service ${D}${systemd_unitdir}/system/
     # enable the service
     ln -sf ${systemd_unitdir}/system/fcc-qcmbr.service \
             ${D}${sysconfdir}/systemd/system/multi-user.target.wants/fcc-qcmbr.service
 
     install -d ${D}${sysconfdir}/systemd/network/
-    install -m 0644 ${WORKDIR}/20-wired.network ${D}${sysconfdir}/systemd/network/
+    install -m 0644 ${S}/20-wired.network ${D}${sysconfdir}/systemd/network/
     install -d ${D}${sysconfdir}/modprobe.d/
-    install -m 0644 ${WORKDIR}/wlan.conf ${D}${sysconfdir}/modprobe.d/
+    install -m 0644 ${S}/wlan.conf ${D}${sysconfdir}/modprobe.d/
 }
