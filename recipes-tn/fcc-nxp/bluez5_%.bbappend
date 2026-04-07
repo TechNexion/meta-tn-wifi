@@ -11,5 +11,5 @@ python () {
 install_fcc_custom_bluez5_conf() {
     install -d ${D}${sysconfdir}/bluetooth/
     bbnote "Applying custom FCC main.conf"
-    install -m 0644 ${S}/sources-unpack/main.conf ${D}${sysconfdir}/bluetooth/
+    install -m 0644 ${UNPACKDIR}/main.conf ${D}${sysconfdir}/bluetooth/
 }
