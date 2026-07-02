@@ -1,12 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-PV = "5.84"
-SRC_URI[sha256sum] = "5ba73d030f7b00087d67800b0e321601aec0f892827c72e5a2c8390d8c886b11"
-SRC_URI:remove = "file://0001-gdbus-define-MAX_INPUT-for-musl.patch \
-           file://0001-shared-ad-fix-std-c23-build-failure.patch \
-           file://0002-shared-shell-fix-std-c23-build-failure.patch \
-           file://0003-shared-gatt-helpers-fix-std-c23-build-failure.patch \
-           "
+PV = "5.86"
+SRC_URI[sha256sum] = "99f144540c6070591e4c53bcb977eb42664c62b7b36cb35a29cf72ded339621d"
 PACKAGECONFIG[asha-profiles] = ""
 
 # Add patches for QCA modules with Qca6174 and Qca9377-3 chips
