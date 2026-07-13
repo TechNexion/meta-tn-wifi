@@ -36,7 +36,6 @@ IMAGE_INSTALL:remove = " \
     packagegroup-tn-voicehat \
     packagegroup-tn-wlan \
     get-support-info \
-    tn-apt-list vizionsdk-dev vizionviewer \
 "
 
 IMAGE_INSTALL:append = " \
