@@ -1,7 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-PV = "5.86"
-SRC_URI[sha256sum] = "99f144540c6070591e4c53bcb977eb42664c62b7b36cb35a29cf72ded339621d"
+PV = "5.87"
+SRC_URI[sha256sum] = "26bdcf2cebd7310c6f598850606b037ef0c515fe6608ebc54d22c50c4c32b35f"
 PACKAGECONFIG[asha-profiles] = ""
 
 # Add patches for QCA modules with Qca6174 and Qca9377-3 chips
