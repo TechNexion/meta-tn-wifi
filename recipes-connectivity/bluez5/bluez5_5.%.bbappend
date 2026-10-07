@@ -25,6 +25,9 @@ QCA_SRC_URI = " \
 QCA_SRC_URI:mx9-nxp-bsp = ""
 
 SRC_URI:append = "${QCA_SRC_URI}"
+SRC_URI:remove = "file://0001-Revert-shared-shell-Don-t-init-input-for-non-interac.patch \
+                  file://0001-tools-Work-around-broken-stdin-handling-in-home-made.patch \
+                  file://0001-gatt-client-Fix-use-after-free-caused-by-reentrant-c.patch"
 
 # As this package is tied to systemd, only build it when we're also building systemd.
 inherit features_check
